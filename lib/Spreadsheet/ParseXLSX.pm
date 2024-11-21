@@ -169,7 +169,27 @@ sub _parse_workbook {
 
   # $workbook->{StandardWidth} = ...;
 
-  # $workbook->{Author} = ...;
+  # Extract the author from docProps/core.xml
+  {
+    my $core;
+    eval {
+      $core = $self->_parse_xml($zip, "docProps/core.xml");
+    };
+    if ($@) {
+      #warn "Error parsing core.xml: $@\n";
+      $workbook->{Author} = undef;  # Set Author to undef if parsing fails
+    } elsif ($core) {
+      my ($creator_node) = $core->find_nodes('//dc:creator');
+      if ($creator_node) {
+        $workbook->{Author} = $creator_node->text;
+      } else {
+        $workbook->{Author} = undef;  # No author found
+      }
+    } else {
+      $workbook->{Author} = undef;  # core.xml missing or unreadable
+    }
+  }
+
 
   # $workbook->{PrintArea} = ...;
   # $workbook->{PrintTitle} = ...;
