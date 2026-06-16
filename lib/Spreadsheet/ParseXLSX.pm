@@ -1187,8 +1187,9 @@ sub _new_twig {
       'http://schemas.openxmlformats.org/officeDocument/2006/relationships' => 'rels',
       'http://schemas.openxmlformats.org/drawingml/2006/main' => 'drawmain',
     },
-    no_xxe => 1,
-    keep_original_prefix => 1,
+    NoLWP => 1,
+    NoXxe => 1,
+    KeepOriginalPrefix => 1,
     %opts,
   );
 }

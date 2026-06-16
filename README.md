@@ -4,7 +4,7 @@ Spreadsheet::ParseXLSX - parse XLSX files
 
 # VERSION
 
-version 0.36
+version 0.37
 
 # SYNOPSIS
 
@@ -165,7 +165,7 @@ Jesse Luehrs <doy@tozt.net>
 
 # COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2025 by Jesse Luehrs.
+This software is Copyright (c) 2026 by Jesse Luehrs.
 
 This is free software, licensed under:
 
