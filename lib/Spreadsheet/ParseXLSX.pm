@@ -376,13 +376,15 @@ sub _parse_sheet {
           $sheet->{MaxCol} = $col
             if $sheet->{MaxCol} < $col;
           my $type = $cell->att('t') || 'n';
-          my $val_xml;
+          my $val;
           if ($type ne 'inlineStr') {
-            $val_xml = $cell->first_child('s:v');
-          } elsif (defined $cell->first_child('s:is')) {
-            $val_xml = ($cell->find_nodes('.//s:t'))[0];
+               my $val_xml = $cell->first_child('s:v');
+               $val = $val_xml ? $val_xml->text : undef;
           }
-          my $val = $val_xml ? $val_xml->text : undef;
+          elsif (defined $cell->first_child('s:is')) {
+              my @text = map { $_ ? $_->text: undef } ($cell->find_nodes('.//s:t'));
+              $val = join ' ', @text;
+          }
 
           my $long_type;
           my $Rich;
